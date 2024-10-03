@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PH Tube</title>
     <!-- favicon start  -->
-    <link rel="shortcut icon" href="./assets/Icon.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="./assets/error_icon.png"
+      type="image/x-icon" />
     <!-- favicon end -->
     <!-- daisy ui cdn link start -->
     <link
@@ -48,17 +51,23 @@
     <!-- navbar section end  -->
 
     <!-- categories section start  -->
-    <nav id="categories" class="flex justify-center gap-6"></nav>
+    <nav id="categories" class="flex justify-center gap-6">
+      <div>
+        <button onclick='categoryWiseLoadData("all")' class="btn text-white font-[600] text-[1rem] bg-[#FF1F3D]">All</button>
+      </div>
+    </nav>
     <!-- categories section end  -->
 
     <!-- videos section start  -->
-     <main>
-      <section id="videos" class="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 gap-x-4 py-10">
+    <main>
+      <section id="error-section"></section>
+      <section
+        id="videos"
+        class="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 gap-x-4 py-10"></section>
+    </main>
 
-      </section>
-     </main>
     <!-- videos section end -->
-    
+
     <!-- script file start  -->
     <script src="./scripts/video.js"></script>
     <!-- script file end  -->

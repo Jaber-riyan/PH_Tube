@@ -11,9 +11,35 @@ const convertTimeHMS = (seconds) => {
 
 // convert second to hours,minutes, second function end 
 
+// no content function start 
+const noContentError = () => {
+    document.querySelector("#videos").innerHTML = "";
+    document.querySelector("#error-section").innerHTML = `
+        <div class=" flex justify-center items-center py-5">
+            <img class="w-[25%]" src="./assets/error_icon.png" alt="">
+        </div>
+        <h2 class="text-[#171717] text-center font-[700] text-[2rem] w-[25%] mx-auto">Oops!! Sorry, There is no content here</h2>
+    `
+}
+// no content function end 
+
 // category wise loading videos start 
-const categoryWiseLoadData = async(category_id) =>{
-    
+const categoryWiseLoadData = async (category_id) => {
+    document.querySelector("#error-section").innerHTML = "";
+    if (category_id === "all") {
+        document.querySelector("#videos").innerHTML = "";
+        loadVideos();
+        return
+    }
+    document.querySelector("#error-section").innerHTML = "";
+    const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${category_id}`);
+    const data = await res.json();
+    // displayVideos(data);
+    if (data.category.length === 0) {
+        noContentError();
+        return
+    }
+    displayVideos(data.category);
 }
 // category wise loading videos end 
 
@@ -45,7 +71,7 @@ const displayCategories = (categories) => {
         // console.log(category.category);
         const buttonContainer = document.createElement('div');
         buttonContainer.innerHTML = `
-            <button onclick='clickButton(${category.category_id})' class="btn text-[#252525B3] font-[600] text-[1rem]">${category.category}</button>
+            <button onclick='categoryWiseLoadData(${category.category_id})' class="btn text-[#252525B3] font-[600] text-[1rem]">${category.category}</button>
         `
         // button.className = "btn text-[#252525B3] font-[600] text-[1rem]";
         // button.innerText = category.category;
@@ -89,6 +115,7 @@ const demoOjb = {
     "description": "Dive into the rhythm of 'Shape of You,' a captivating track that blends pop sensibilities with vibrant beats. Created by Olivia Mitchell, this song has already gained 100K views since its release. With its infectious melody and heartfelt lyrics, 'Shape of You' is perfect for fans looking for an uplifting musical experience. Let the music take over as Olivia's vocal prowess and unique style create a memorable listening journey."
 }
 const displayVideos = (videos) => {
+    document.querySelector("#videos").innerHTML = "";
     const videoContainer = document.querySelector("#videos");
     videos.forEach(video => {
         // console.log(parseFloat(video.others.views) * 1000);
@@ -112,8 +139,8 @@ const displayVideos = (videos) => {
                 <div class="flex gap-2 items-center">
                     <p class="text-[#171717B3] font-[500]">${video?.authors[0]?.profile_name} </p>
                     ${video?.authors[0]?.verified
-                    ? `<img class="w-5 h-5" src="https://img.icons8.com/?size=48&id=D9RtvkuOe31p&format=png" alt=''>`
-                    : ""}
+                ? `<img class="w-5 h-5" src="https://img.icons8.com/?size=48&id=D9RtvkuOe31p&format=png" alt=''>`
+                : ""}
                       
                 </div>
                 <p class="text-[#171717B3] font-[500]">${video?.others?.views}</p>
