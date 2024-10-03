@@ -11,34 +11,21 @@ const convertTimeHMS = (seconds) => {
 
 // convert second to hours,minutes, second function end 
 
-// no content function start 
-const noContentError = () => {
-    document.querySelector("#videos").innerHTML = "";
-    document.querySelector("#error-section").innerHTML = `
-        <div class=" flex justify-center items-center py-5">
-            <img class="w-[25%]" src="./assets/error_icon.png" alt="">
-        </div>
-        <h2 class="text-[#171717] text-center font-[700] text-[2rem] w-[25%] mx-auto">Oops!! Sorry, There is no content here</h2>
-    `
-}
-// no content function end 
 
 // category wise loading videos start 
 const categoryWiseLoadData = async (category_id) => {
-    document.querySelector("#error-section").innerHTML = "";
     if (category_id === "all") {
         document.querySelector("#videos").innerHTML = "";
         loadVideos();
         return
     }
-    document.querySelector("#error-section").innerHTML = "";
     const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${category_id}`);
     const data = await res.json();
     // displayVideos(data);
-    if (data.category.length === 0) {
-        noContentError();
-        return
-    }
+    // if (data.category.length === 0) {
+    //     noContentError();
+    //     return
+    // }
     displayVideos(data.category);
 }
 // category wise loading videos end 
@@ -117,6 +104,19 @@ const demoOjb = {
 const displayVideos = (videos) => {
     document.querySelector("#videos").innerHTML = "";
     const videoContainer = document.querySelector("#videos");
+    if (videos.length === 0) {
+        videoContainer.classList.remove('grid');
+        videoContainer.innerHTML = `
+            <div class=" flex justify-center items-center py-5">
+                <img class="w-[25%]" src="./assets/error_icon.png" alt="">
+            </div>
+            <h2 class="text-[#171717] text-center font-[700] text-[2rem] w-[25%] mx-auto">Oops!! Sorry, There is no content here</h2>
+        `
+        return
+    }
+    else {
+        videoContainer.classList.add('grid');
+    }
     videos.forEach(video => {
         // console.log(parseFloat(video.others.views) * 1000);
         const div = document.createElement("div");
