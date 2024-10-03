@@ -17,6 +17,9 @@
       type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- daisy ui cdn link end -->
+
+    <!-- external css file add  -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <!-- navbar section start  -->
@@ -27,7 +30,7 @@
         </div>
         <div class="search">
           <label class="input input-bordered flex items-center gap-2">
-            <input type="text" class="grow" placeholder="Search" />
+            <input id="searchInput" type="text" class="grow" placeholder="Search" />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -53,7 +56,12 @@
     <!-- categories section start  -->
     <nav id="categories" class="flex justify-center gap-6">
       <div>
-        <button onclick='categoryWiseLoadData("all")' class="btn text-white font-[600] text-[1rem] bg-[#FF1F3D]">All</button>
+        <button
+          id="btn-1000"
+          onclick='categoryWiseLoadData("all")'
+          class="btn text-white font-[600] text-[1rem] bg-[#FF1F3D] category-btn">
+          All
+        </button>
       </div>
     </nav>
     <!-- categories section end  -->
@@ -64,8 +72,23 @@
         id="videos"
         class="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 gap-x-4 py-10"></section>
     </main>
-
     <!-- videos section end -->
+
+    <!-- modal section start  -->
+    <!-- Open the modal using ID.showModal() method -->
+    <button id="showModalBtn" class="btn hidden" onclick="detailModal.showModal()">open modal</button>
+    <dialog id="detailModal" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <div id="modal-content"></div>
+        <div class="modal-action justify-start">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+    <!-- modal section end  -->
 
     <!-- script file start  -->
     <script src="./scripts/video.js"></script>
